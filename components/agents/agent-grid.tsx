@@ -12,7 +12,6 @@ interface Agent {
 
 export default function AgentGrid() {
   const [mounted, setMounted] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [agents, setAgents] = useState<Agent[]>([
     {
       name: "Email Summary Assistant",
@@ -28,7 +27,6 @@ export default function AgentGrid() {
 
   useEffect(() => {
     setMounted(true);
-    setLoading(false);
   }, []);
 
   const handleToggle = async (index: number, enabled: boolean) => {
@@ -47,8 +45,8 @@ export default function AgentGrid() {
     }
   };
 
-  if (!mounted || loading) {
-    return <Loading />;
+  if (!mounted) {
+    return null;
   }
 
   return (

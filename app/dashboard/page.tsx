@@ -1,5 +1,3 @@
-import { Suspense } from "react";
-import Loading from "@/components/ui/loading";
 import AgentGridWrapper from "@/components/agents/agent-grid-wrapper";
 
 export default function DashboardPage() {
@@ -15,9 +13,7 @@ export default function DashboardPage() {
       <div className="space-y-6">
         <section>
           <h2 className="text-lg font-semibold mb-4">Active Agents</h2>
-          <Suspense fallback={<Loading />}>
-            <AgentGridWrapper />
-          </Suspense>
+          <AgentGridWrapper />
         </section>
       </div>
     </div>

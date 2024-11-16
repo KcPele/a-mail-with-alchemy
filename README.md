@@ -1,24 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Data Integration Assistant
+
+A modern web application that provides intelligent AI agents to help users manage their digital life through secure OAuth integrations with various services like Gmail, Google Calendar, and ride-sharing platforms.
+
+## Features
+
+### 1. Intelligent AI Agents
+
+- **Email Summary Assistant**
+
+  - Analyzes unread emails and generates daily summaries
+  - Categorizes emails by importance and required actions
+  - Provides actionable insights from your inbox
+
+- **Schedule Assistant**
+  - Manages calendar events and meetings
+  - Automatically arranges transportation for meetings
+  - Integrates with ride-sharing services
+
+### 2. Secure Data Integration
+
+- OAuth 2.0 authentication for all service connections
+- End-to-end encryption for sensitive data
+- Trusted Execution Environment (TEE) for secure processing
+- GDPR-compliant data handling
+
+### 3. Smart Intent Recognition
+
+- Natural language processing for user requests
+- Context-aware agent selection
+- Automatic service authorization checks
+- High-accuracy intent matching
+
+## Technology Stack
+
+- **Frontend**
+
+  - Next.js 14 (App Router)
+  - React 19
+  - TypeScript
+  - Tailwind CSS
+  - Lucide Icons
+
+- **Backend**
+
+  - Next.js API Routes
+  - OpenAI GPT-4
+  - Google APIs (Gmail, Calendar)
+  - OAuth 2.0 Integration
+
+- **Security**
+  - AES-256 Encryption
+  - Trusted Execution Environment
+  - Secure Token Management
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+Node.js >= 18.0.0
+npm >= 9.0.0
+
+### Installation
+
+1. Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/ai-data-assistant.git
+cd ai-data-assistant
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Set up environment variables:
+
+```bash
+cp .env.example .env.local
+```
+
+Fill in the following variables in `.env.local`:
+
+```env
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE
+```
 
 ## Learn More
 
