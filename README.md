@@ -84,9 +84,13 @@ cp .env.example .env.local
 Fill in the following variables in `.env.local`:
 
 ```env
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-GOOGLE
+GOOGLE_CLIENT_ID=your_client_id
+GOOGLE_CLIENT_SECRET=your_client_secret
+GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/callback/google
+ENCRYPTION_KEY=your_32_byte_encryption_key
+OPENAI_API_KEY=your_openai_api_key
+UBER_API_KEY=your_uber_api_key
+LYFT_API_KEY=your_lyft_api_key
 ```
 
 ## Learn More
