@@ -1,6 +1,7 @@
-import { BaseAgent, AgentConfig } from "./base-agent";
+import { BaseAgent } from "./base-agent";
 import { GmailConnector } from "../connectors/gmail-connector";
 import { google } from "googleapis";
+import type { AgentConfig, AgentParams, AgentResponse } from "@/types";
 
 interface RideDetails {
   pickupTime: string;
@@ -33,21 +34,29 @@ export class ScheduleAssistant extends BaseAgent {
     });
   }
 
-  async execute(params: { date: string }): Promise<ScheduleResult> {
+  async execute(params: AgentParams): Promise<AgentResponse<ScheduleResult>> {
     try {
-      const meetings = await this.getUpcomingMeetings(params.date);
+      const meetings = await this.getUpcomingMeetings(
+        params.date || new Date().toISOString()
+      );
       const meetingsNeedingRides = await this.analyzeMeetingsForTransport(
         meetings
       );
       const scheduledRides = await this.scheduleRides(meetingsNeedingRides);
 
       return {
-        meetings,
-        scheduledRides,
+        success: true,
+        data: {
+          meetings,
+          scheduledRides,
+        },
       };
     } catch (error) {
       console.error("Schedule assistant execution failed:", error);
-      throw error;
+      return {
+        success: false,
+        error: "Failed to process schedule",
+      };
     }
   }
 
@@ -63,7 +72,7 @@ export class ScheduleAssistant extends BaseAgent {
     return response.data.items;
   }
 
-  private async analyzeMeetingsForTransport(meetings: any[]) {
+  private async analyzeMeetingsForTransport(meetings: Meeting[]) {
     const analysis = await this.generateAIResponse(
       "Analyze these meetings and determine which ones need transportation arranged.",
       JSON.stringify(meetings)
@@ -72,7 +81,7 @@ export class ScheduleAssistant extends BaseAgent {
     return JSON.parse(analysis);
   }
 
-  private async scheduleRides(meetings: any[]): Promise<RideDetails[]> {
+  private async scheduleRides(meetings: Meeting[]): Promise<RideDetails[]> {
     return meetings.map((meeting) => ({
       pickupTime: new Date(meeting.start.dateTime).toISOString(),
       pickupLocation: "User's Default Location",

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import AgentCard from "./agent-card";
-import Loading from "@/components/ui/loading";
+// import Loading from "@/components/ui/loading";
 
 interface Agent {
   name: string;

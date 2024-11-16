@@ -16,6 +16,7 @@ const Switch = React.forwardRef<
   if (!mounted) {
     return null;
   }
+  console.log(className);
 
   return (
     <SwitchPrimitives.Root

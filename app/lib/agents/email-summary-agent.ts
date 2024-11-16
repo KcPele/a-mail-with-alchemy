@@ -1,7 +1,9 @@
-import { BaseAgent, AgentConfig } from "./base-agent";
+import { BaseAgent } from "./base-agent";
 import { GmailConnector } from "../connectors/gmail-connector";
+import { AgentConfig } from "@/types";
 
 interface EmailSummaryResult {
+  success: boolean;
   summary: string;
   categories: {
     important: string[];
@@ -20,6 +22,7 @@ export class EmailSummaryAgent extends BaseAgent {
   }
 
   async execute(params: { timeframe?: string }): Promise<EmailSummaryResult> {
+    console.log("Executing Email Summary Agent", params);
     try {
       const emailData = await this.gmailConnector.getData({
         query: "is:unread",
@@ -43,6 +46,7 @@ export class EmailSummaryAgent extends BaseAgent {
       const categories = await this.categorizeEmails(emailTexts);
 
       return {
+        success: true,
         summary,
         categories,
         totalEmails: emailData.messages.length,

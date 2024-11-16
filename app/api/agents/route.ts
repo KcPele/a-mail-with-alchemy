@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { GmailConnector } from "@/app/lib/connectors/gmail-connector";
 import { EmailSummaryAgent } from "@/app/lib/agents/email-summary-agent";
 import { ScheduleAssistant } from "@/app/lib/agents/schedule-assistant";
-import { AgentConfig } from "@/app/lib/agents/base-agent";
+import type { AgentConfig } from "@/types";
 
 const gmailConnector = new GmailConnector({
   clientId: process.env.GOOGLE_CLIENT_ID!,

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Lock, Check, Loader2 } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
+import Image from "next/image";
 
 interface OAuthButtonProps {
   service: "gmail" | "calendar" | "uber";
@@ -20,17 +21,17 @@ export function OAuthButton({
     gmail: {
       name: "Gmail",
       color: "bg-red-500 hover:bg-red-600",
-      icon: "https://www.google.com/gmail/about/static/images/logo-gmail.png",
+      icon: "/images/gmail-logo.png",
     },
     calendar: {
       name: "Google Calendar",
       color: "bg-blue-500 hover:bg-blue-600",
-      icon: "https://fonts.gstatic.com/s/i/productlogos/calendar_2020q4/v13/192px.svg",
+      icon: "/images/calendar-logo.png",
     },
     uber: {
       name: "Uber",
       color: "bg-black hover:bg-gray-800",
-      icon: "https://d1a3f4spazzrp4.cloudfront.net/uber-com/1.3.8/d1a3f4spazzrp4.cloudfront.net/illustrations/logo-black.svg",
+      icon: "/images/uber-logo.png",
     },
   };
 
@@ -59,10 +60,11 @@ export function OAuthButton({
       ) : isConnected ? (
         <Check className="w-5 h-5" />
       ) : (
-        <img
+        <Image
           src={serviceConfig[service].icon}
           alt={serviceConfig[service].name}
-          className="w-5 h-5"
+          width={20}
+          height={20}
         />
       )}
       <span className="font-medium">

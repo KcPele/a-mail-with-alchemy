@@ -1,10 +1,7 @@
 import { openai } from "../utils/openai";
+import type { AgentConfig, AgentParams, AgentResponse } from "@/types";
 
-export interface AgentConfig {
-  name: string;
-  description: string;
-  enabled: boolean;
-}
+export type { AgentConfig };
 
 export abstract class BaseAgent {
   protected config: AgentConfig;
@@ -13,7 +10,7 @@ export abstract class BaseAgent {
     this.config = config;
   }
 
-  abstract execute(params: any): Promise<any>;
+  abstract execute(params: AgentParams): Promise<AgentResponse<unknown>>;
   abstract getStatus(): Promise<AgentConfig>;
 
   protected async generateAIResponse(

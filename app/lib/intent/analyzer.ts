@@ -1,5 +1,5 @@
 import { openai } from "../../lib/utils/openai";
-import { encryptData } from "../utils/encryption";
+// import { encryptData } from "../utils/encryption";
 import { TEE } from "../utils/tee";
 
 export class IntentAnalyzer {
@@ -10,7 +10,7 @@ export class IntentAnalyzer {
   }
 
   async analyzeIntent(input: string) {
-    const encryptedInput = await encryptData(input);
+    // const encryptedInput = await encryptData(input);
 
     return await this.tee.process(async () => {
       const completion = await openai.chat.completions.create({
