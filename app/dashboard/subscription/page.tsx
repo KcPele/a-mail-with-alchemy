@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { Shield, Check } from "lucide-react";
-import { arbitrum } from "viem/chains";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
-import { useConnectWallet } from "@/hooks/useConnectWallet";
+import { useConnectWallet } from "app/hooks/useConnectWallet";
 
 const SUBSCRIPTION_TIERS = [
   {
@@ -56,11 +55,11 @@ export default function SubscriptionPage() {
       const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS!;
       const data = `0x23b872dd000000000000000000000000${tier}`; // purchaseSubscription function signature
 
-      const tx = await primaryWallet.connector.sendTransaction({
-        to: contractAddress,
-        data,
-        value: "0x00",
-      });
+      // const tx = await primaryWallet.connector.sendTransaction({
+      //   to: contractAddress,
+      //   data,
+      //   value: "0x00",
+      // });
 
       alert("Subscription successful!");
     } catch (error) {

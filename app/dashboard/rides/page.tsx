@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { Car, MapPin, Clock } from "lucide-react";
-import { arbitrum } from "viem/chains";
 
 interface RideDetails {
   rideId: string;

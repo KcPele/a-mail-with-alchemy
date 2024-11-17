@@ -1,11 +1,11 @@
-import { http } from "viem";
-import { baseSepolia, sepolia } from "viem/chains";
-import { createConfig } from "wagmi";
+"use client";
+
+import { createConfig, http } from "wagmi";
+import { mainnet } from "wagmi/chains";
 
 export const config = createConfig({
-  chains: [baseSepolia, sepolia],
+  chains: [mainnet],
   transports: {
-    [baseSepolia.id]: http(),
-    [sepolia.id]: http(),
+    [mainnet.id]: http(),
   },
 });

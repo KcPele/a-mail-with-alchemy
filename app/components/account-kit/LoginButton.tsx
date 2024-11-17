@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import { arbitrum } from "viem/chains";
 
 interface LoginButtonProps {
   onLogin: (address: string) => void;

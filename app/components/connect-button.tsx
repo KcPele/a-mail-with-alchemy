@@ -2,29 +2,38 @@
 
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { useAccount } from "wagmi";
-import { Button } from "./ui/button"; // Assuming you have a Button component
 
 export function ConnectButton() {
   const { setShowAuthFlow, primaryWallet, handleLogOut } = useDynamicContext();
-  const { address } = useAccount();
+
+  // Add error handling for Wagmi hook
+  let address;
+  try {
+    const account = useAccount();
+    address = account?.address;
+  } catch (error) {
+    console.error("Wagmi provider error:", error);
+    // Fallback to using only primaryWallet
+    address = primaryWallet?.address;
+  }
 
   if (primaryWallet && address) {
     return (
-      <Button onClick={handleLogOut} className="flex items-center gap-2">
+      <button onClick={handleLogOut} className="flex items-center gap-2">
         <span className="hidden sm:inline">
           {address.slice(0, 6)}...{address.slice(-4)}
         </span>
         Disconnect
-      </Button>
+      </button>
     );
   }
 
   return (
-    <Button
+    <button
       onClick={() => setShowAuthFlow(true)}
       className="flex items-center gap-2"
     >
       Connect Wallet
-    </Button>
+    </button>
   );
 }

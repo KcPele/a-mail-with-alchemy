@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Layout, Mail, Calendar, Settings } from "lucide-react";
-import { ConnectButton } from "@/components/connect-button";
+import { ConnectButton } from "app/components/connect-button";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: Layout },
