@@ -1,7 +1,6 @@
 import { alchemy, sepolia } from "@account-kit/infra";
 import { createConfig, cookieStorage } from "@account-kit/react";
 import { QueryClient } from "@tanstack/react-query";
-
 export const config = createConfig(
   {
     transport: alchemy({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY! }),
@@ -28,7 +27,7 @@ export const config = createConfig(
         ],
       ],
       addPasskeyOnSignup: true,
-      showSignInText: true,
+      header: "Welcome to Your App",
     },
   }
 );

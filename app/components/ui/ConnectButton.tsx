@@ -6,6 +6,7 @@ import {
   useUser,
 } from "@account-kit/react";
 import Loading from "components/ui/loading";
+
 export function ConnectButton() {
   const user = useUser();
   const { openAuthModal } = useAuthModal();
@@ -21,14 +22,17 @@ export function ConnectButton() {
           <p className="text-xl font-bold">Success!</p>
           {user.email ?? "anon"}.
           <button
-            className="akui-btn akui-btn-primary"
+            className="bg-red-500 text-white shadow hover:bg-red-600 h-9 px-4 py-2 rounded-md transition-colors"
             onClick={() => logout()}
           >
             Log out
           </button>
         </div>
       ) : (
-        <button className="akui-btn akui-btn-primary" onClick={openAuthModal}>
+        <button
+          className="bg-blue-500 text-white shadow hover:bg-blue-600 h-9 px-4 py-2 rounded-md transition-colors"
+          onClick={openAuthModal}
+        >
           Login
         </button>
       )}

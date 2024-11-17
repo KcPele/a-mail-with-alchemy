@@ -1,12 +1,11 @@
 "use client";
 
 import { QueryClientProvider } from "@tanstack/react-query";
-import { AlchemyAccountProvider, UiConfigProvider } from "@account-kit/react";
+import { AlchemyAccountProvider } from "@account-kit/react";
 import { config, queryClient } from "app/config";
 
 import { AlchemyClientState } from "@account-kit/core";
 import { PropsWithChildren } from "react";
-import { ConnectButton } from "../ui/ConnectButton";
 import Navbar from "../ui/navbar";
 
 export function RootProvider(
