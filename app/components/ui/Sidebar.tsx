@@ -6,12 +6,11 @@ import {
   Home,
   Settings,
   Shield,
-  Car,
   Wallet,
   Mail,
   Calendar,
   Blocks,
-  CreditCard,
+  Car,
 } from "lucide-react";
 
 const NAVIGATION_ITEMS = [
@@ -61,16 +60,6 @@ const NAVIGATION_ITEMS = [
       {
         name: "Rides",
         href: "/dashboard/rides",
-        icon: Car,
-      },
-      {
-        name: "Payments",
-        href: "#",
-        icon: CreditCard,
-      },
-      {
-        name: "Bridge",
-        href: "/dashboard/bridge",
         icon: Car,
       },
     ],

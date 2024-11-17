@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "components/ui/loading";
+import Loading from "app/components/ui/loading";
 import dynamic from "next/dynamic";
 
 const AgentGrid = dynamic(() => import("./agent-grid"), {

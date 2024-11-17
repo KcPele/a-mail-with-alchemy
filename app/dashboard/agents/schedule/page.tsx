@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Calendar, Clock, MapPin, RefreshCw } from "lucide-react";
-import Loading from "components/ui/loading";
+import Loading from "app/components/ui/loading";
 
 interface Meeting {
   summary: string;

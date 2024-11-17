@@ -1,7 +1,7 @@
 "use client";
 
-import { IntentInput } from "components/intent/intent-input";
-import Loading from "components/ui/loading";
+import { IntentInput } from "app/components/intent/intent-input";
+import Loading from "app/components/ui/loading";
 import { useState } from "react";
 
 interface MatchResult {

@@ -5,7 +5,7 @@ import {
   useSignerStatus,
   useUser,
 } from "@account-kit/react";
-import Loading from "components/ui/loading";
+import Loading from "app/components/ui/loading";
 
 export function ConnectButton() {
   const user = useUser();
