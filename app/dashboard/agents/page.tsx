@@ -1,4 +1,4 @@
-import AgentGridWrapper from "@/components/agents/agent-grid-wrapper";
+import AgentGridWrapper from "components/agents/agent-grid-wrapper";
 
 export default function AgentsPage() {
   return (

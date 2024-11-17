@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Navbar from "@/components/ui/navbar";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { DynamicProvider } from "./components/providers/dynamic-provider";
+import NavbarWallet from "./components/ui/Navbar";
 
 export const metadata: Metadata = {
   title: "AI Data Integration Assistant",
@@ -17,9 +15,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Navbar />
-        <main className="min-h-[calc(100vh-4rem)]">{children}</main>
+      <body>
+        <DynamicProvider>
+          <NavbarWallet />
+          {children}
+        </DynamicProvider>
       </body>
     </html>
   );

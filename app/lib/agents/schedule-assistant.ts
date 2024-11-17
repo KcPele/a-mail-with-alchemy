@@ -1,44 +1,36 @@
 import { BaseAgent } from "./base-agent";
 import { GmailConnector } from "../connectors/gmail-connector";
-import { google } from "googleapis";
-import type { AgentConfig, AgentParams, AgentResponse } from "@/types";
-
+import { AgentConfig, AgentParams, AgentResponse } from "app/types";
+import { GoogleEvent } from "app/types/google-apis";
 interface RideDetails {
   pickupTime: string;
   pickupLocation: string;
   dropoffLocation: string;
   service: "uber" | "lyft";
-}
-
-interface Meeting {
-  summary: string;
-  start: { dateTime: string };
-  location?: string;
+  eventId: string;
 }
 
 interface ScheduleResult {
-  meetings: Meeting[];
+  meetings: GoogleEvent[];
   scheduledRides: RideDetails[];
 }
 
 export class ScheduleAssistant extends BaseAgent {
   private gmailConnector: GmailConnector;
-  private calendar: any;
 
   constructor(gmailConnector: GmailConnector, config: AgentConfig) {
     super(config);
     this.gmailConnector = gmailConnector;
-    this.calendar = google.calendar({
-      version: "v3",
-      auth: gmailConnector["oauth2Client"],
-    });
   }
 
   async execute(params: AgentParams): Promise<AgentResponse<ScheduleResult>> {
     try {
-      const meetings = await this.getUpcomingMeetings(
-        params.date || new Date().toISOString()
-      );
+      const { events: meetings } = await this.gmailConnector.getCalendarEvents({
+        timeMin: params.date || new Date().toISOString(),
+        timeMax: params.endDate,
+        maxResults: params.maxResults || 10,
+      });
+
       const meetingsNeedingRides = await this.analyzeMeetingsForTransport(
         meetings
       );
@@ -60,29 +52,23 @@ export class ScheduleAssistant extends BaseAgent {
     }
   }
 
-  private async getUpcomingMeetings(date: string) {
-    const response = await this.calendar.events.list({
-      calendarId: "primary",
-      timeMin: new Date(date).toISOString(),
-      maxResults: 10,
-      singleEvents: true,
-      orderBy: "startTime",
+  private async analyzeMeetingsForTransport(meetings: GoogleEvent[]) {
+    return meetings.filter((meeting) => {
+      // Only consider meetings with physical locations
+      return (
+        meeting.location &&
+        !meeting.conferenceData && // Exclude virtual meetings
+        meeting.attendees?.some(
+          (attendee: { responseStatus: string }) =>
+            attendee.responseStatus === "accepted"
+        )
+      ); // Has confirmed attendees
     });
-
-    return response.data.items;
   }
 
-  private async analyzeMeetingsForTransport(meetings: Meeting[]) {
-    const analysis = await this.generateAIResponse(
-      "Analyze these meetings and determine which ones need transportation arranged.",
-      JSON.stringify(meetings)
-    );
-
-    return JSON.parse(analysis);
-  }
-
-  private async scheduleRides(meetings: Meeting[]): Promise<RideDetails[]> {
+  private async scheduleRides(meetings: GoogleEvent[]): Promise<RideDetails[]> {
     return meetings.map((meeting) => ({
+      eventId: meeting.id,
       pickupTime: new Date(meeting.start.dateTime).toISOString(),
       pickupLocation: "User's Default Location",
       dropoffLocation: meeting.location || "",

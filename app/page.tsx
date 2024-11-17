@@ -1,24 +1,33 @@
 "use client";
 
-import { ArrowRight, Mail, Calendar, Lock } from "lucide-react";
+import {
+  ArrowRight,
+  Mail,
+  Calendar,
+  Lock,
+  Shield,
+  Zap,
+  Brain,
+  Blocks,
+  Wallet,
+  Key,
+} from "lucide-react";
 import Link from "next/link";
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <main className="w-full min-h-[calc(100vh-4rem)] pt-16">
       {/* Hero Section */}
-      <section className="container mx-auto px-4 pt-20 pb-16">
-        <div className="text-center max-w-3xl mx-auto">
-          <h1 className="text-5xl font-bold tracking-tight text-gray-900 mb-6">
-            Your Smart AI Assistant for
-            <span className="text-blue-600"> Data Integration</span>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center">
+          <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl mb-6">
+            Your AI Email Assistant
           </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Seamlessly connect and manage your digital life with our intelligent
-            AI assistant. Secure OAuth integration with Gmail, Calendar, and
-            more.
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+            Manage your emails intelligently with AI-powered automation. Save
+            time and stay organized.
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex justify-center gap-4">
             <Link
               href="/dashboard"
               className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
@@ -26,61 +35,173 @@ export default function LandingPage() {
               Get Started <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/docs"
-              className="px-6 py-3 bg-white text-gray-700 rounded-lg border hover:bg-gray-50 transition"
+              href="#features"
+              className="px-6 py-3 bg-gray-100 text-gray-900 rounded-lg hover:bg-gray-200 transition"
             >
-              View Documentation
+              Learn More
             </Link>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+      <section id="features" className="bg-gray-50 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-12">
-            Integrated Services
+            Powerful Features
           </h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8">
             <FeatureCard
               icon={<Mail className="w-8 h-8 text-blue-600" />}
-              title="Gmail Integration"
-              description="Secure access to your emails with OAuth 2.0 authentication. Manage and analyze your communications efficiently."
+              title="Smart Email Management"
+              description="Automatically categorize and prioritize your emails using advanced AI algorithms."
             />
             <FeatureCard
-              icon={<Calendar className="w-8 h-8 text-blue-600" />}
-              title="Calendar Access"
-              description="Connect your calendar to manage schedules, meetings, and events with intelligent automation."
+              icon={<Brain className="w-8 h-8 text-blue-600" />}
+              title="AI-Powered Responses"
+              description="Generate intelligent email responses with context-aware AI assistance."
             />
             <FeatureCard
-              icon={<Lock className="w-8 h-8 text-blue-600" />}
-              title="Secure Authentication"
-              description="Enterprise-grade security with OAuth 2.0 and encrypted data storage for all your connections."
+              icon={<Zap className="w-8 h-8 text-blue-600" />}
+              title="Automation Workflows"
+              description="Create custom automation rules to handle repetitive email tasks."
             />
           </div>
         </div>
       </section>
 
-      {/* Security Badge Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4 text-center">
-          <h3 className="text-2xl font-semibold mb-6">
-            Trusted Security Standards
-          </h3>
-          <div className="flex flex-wrap justify-center gap-8">
+      {/* Security Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">
+              Enterprise-Grade Security
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Your data security is our top priority. We use industry-leading
+              encryption and security practices.
+            </p>
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 justify-center">
             <SecurityBadge
-              title="OAuth 2.0"
-              description="Industry-standard security"
+              title="End-to-End Encryption"
+              description="Your data is always encrypted"
             />
             <SecurityBadge
-              title="Data Encryption"
-              description="End-to-end encryption"
+              title="SOC 2 Compliant"
+              description="Enterprise security standards"
             />
             <SecurityBadge
-              title="GDPR Compliant"
-              description="Privacy focused"
+              title="Data Privacy"
+              description="GDPR and CCPA compliant"
             />
           </div>
+        </div>
+      </section>
+
+      {/* Blockchain Features Section */}
+      <section className="py-20 bg-gradient-to-b from-blue-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold mb-4">Powered by Blockchain</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Experience the next generation of email security and authenticity
+              with our blockchain integration
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <FeatureCard
+              icon={<Blocks className="w-8 h-8 text-blue-600" />}
+              title="Decentralized Storage"
+              description="Your emails are securely stored on the blockchain, ensuring permanence and immutability."
+            />
+            <FeatureCard
+              icon={<Key className="w-8 h-8 text-blue-600" />}
+              title="Cryptographic Verification"
+              description="Every email is cryptographically signed, guaranteeing authenticity and preventing tampering."
+            />
+            <FeatureCard
+              icon={<Wallet className="w-8 h-8 text-blue-600" />}
+              title="Web3 Integration"
+              description="Connect your wallet for seamless blockchain interactions and enhanced security."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Blockchain Benefits Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">Why Blockchain?</h2>
+              <div className="space-y-6">
+                <BenefitItem
+                  title="Immutable Record Keeping"
+                  description="Every email transaction is recorded on the blockchain, creating an unchangeable audit trail."
+                />
+                <BenefitItem
+                  title="Decentralized Security"
+                  description="No single point of failure - your data is distributed across the blockchain network."
+                />
+                <BenefitItem
+                  title="Smart Contract Automation"
+                  description="Automated email workflows powered by blockchain smart contracts."
+                />
+                <BenefitItem
+                  title="Token-Gated Features"
+                  description="Access premium features through our native token system."
+                />
+              </div>
+            </div>
+            <div className="relative">
+              <div className="aspect-square rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 p-1">
+                <div className="h-full w-full bg-white rounded-xl p-8">
+                  <div className="space-y-4">
+                    <MetricCard label="Transactions Processed" value="1M+" />
+                    <MetricCard label="Network Nodes" value="10,000+" />
+                    <MetricCard label="Security Score" value="99.99%" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Technology Stack Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Our Technology Stack
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <TechStackItem
+              title="Ethereum"
+              description="Smart contract platform"
+            />
+            <TechStackItem title="IPFS" description="Decentralized storage" />
+            <TechStackItem
+              title="Zero Knowledge"
+              description="Privacy preservation"
+            />
+            <TechStackItem title="Layer 2" description="Scalability solution" />
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-blue-600 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-white mb-6">
+            Ready to Transform Your Email Experience?
+          </h2>
+          <Link
+            href="/dashboard"
+            className="inline-flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition gap-2"
+          >
+            Get Started Now <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
     </main>
@@ -119,6 +240,52 @@ const SecurityBadge = ({
         <p className="font-medium">{title}</p>
         <p className="text-sm text-gray-500">{description}</p>
       </div>
+    </div>
+  );
+};
+
+const BenefitItem = ({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) => {
+  return (
+    <div className="flex gap-4">
+      <div className="mt-1">
+        <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
+          <div className="w-2 h-2 rounded-full bg-blue-600" />
+        </div>
+      </div>
+      <div>
+        <h3 className="font-semibold mb-1">{title}</h3>
+        <p className="text-gray-600">{description}</p>
+      </div>
+    </div>
+  );
+};
+
+const MetricCard = ({ label, value }: { label: string; value: string }) => {
+  return (
+    <div className="bg-gray-50 rounded-lg p-4">
+      <p className="text-gray-600 text-sm">{label}</p>
+      <p className="text-2xl font-bold text-gray-900">{value}</p>
+    </div>
+  );
+};
+
+const TechStackItem = ({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) => {
+  return (
+    <div className="text-center p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition">
+      <h3 className="font-semibold mb-2">{title}</h3>
+      <p className="text-sm text-gray-600">{description}</p>
     </div>
   );
 };

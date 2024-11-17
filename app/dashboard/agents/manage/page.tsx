@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Settings, AlertCircle } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
+import { Switch } from "components/ui/switch";
 
 interface AgentSettings {
   id: string;

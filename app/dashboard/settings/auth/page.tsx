@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Shield } from "lucide-react";
-import { OAuthButton } from "@/components/auth/oauth-button";
+import { OAuthButton } from "components/auth/oauth-button";
 
 interface AuthState {
   gmail: boolean;

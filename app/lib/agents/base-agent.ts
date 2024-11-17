@@ -1,5 +1,5 @@
+import { AgentConfig, AgentParams, AgentResponse } from "app/types";
 import { openai } from "../utils/openai";
-import type { AgentConfig, AgentParams, AgentResponse } from "@/types";
 
 export type { AgentConfig };
 

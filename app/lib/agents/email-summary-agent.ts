@@ -1,6 +1,6 @@
 import { BaseAgent } from "./base-agent";
 import { GmailConnector } from "../connectors/gmail-connector";
-import { AgentConfig } from "@/types";
+import { AgentConfig } from "app/types";
 
 interface EmailSummaryResult {
   success: boolean;

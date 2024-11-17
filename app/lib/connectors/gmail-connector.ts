@@ -1,14 +1,21 @@
 import { google } from "googleapis";
 import { BaseConnector } from "./base-connector";
-import type { ConnectorCredentials, ConnectorConfig } from "@/types";
+import {
+  GoogleCalendarData,
+  GoogleEvent,
+  GoogleMessage,
+} from "app/types/google-apis";
+import { ConnectorConfig, ConnectorCredentials } from "app/types";
 
 export interface GmailData {
-  messages: any[];
+  messages: GoogleMessage[];
   nextPageToken?: string;
 }
 
 export class GmailConnector extends BaseConnector {
   private oauth2Client: any;
+  private gmail: any;
+  private calendar: any;
 
   constructor(config: ConnectorConfig) {
     super(config);
@@ -27,11 +34,17 @@ export class GmailConnector extends BaseConnector {
         expiry_date: credentials.expiryDate,
       });
 
+      this.gmail = google.gmail({ version: "v1", auth: this.oauth2Client });
+      this.calendar = google.calendar({
+        version: "v3",
+        auth: this.oauth2Client,
+      });
+
       this.credentials = credentials;
       await this.secureStore(credentials);
       return true;
     } catch (error) {
-      console.error("Gmail connection error:", error);
+      console.error("Google API connection error:", error);
       return false;
     }
   }
@@ -41,27 +54,26 @@ export class GmailConnector extends BaseConnector {
     maxResults?: number;
   }): Promise<GmailData> {
     try {
-      const gmail = google.gmail({ version: "v1", auth: this.oauth2Client });
-
-      const response = await gmail.users.messages.list({
+      const response = await this.gmail.users.messages.list({
         userId: "me",
         q: params.query || "",
         maxResults: params.maxResults || 10,
       });
 
       const messages = await Promise.all(
-        (response.data.messages || []).map(async (message) => {
-          const details = await gmail.users.messages.get({
+        (response.data.messages || []).map(async (message: { id: string }) => {
+          const details = await this.gmail.users.messages.get({
             userId: "me",
-            id: message.id!,
+            id: message.id,
+            format: "full",
           });
-          return details.data;
+          return details.data as GoogleMessage;
         })
       );
 
       return {
         messages,
-        nextPageToken: response.data.nextPageToken || undefined,
+        nextPageToken: response.data.nextPageToken,
       };
     } catch (error: any) {
       if (error.code === 401) {
@@ -95,6 +107,56 @@ export class GmailConnector extends BaseConnector {
     } catch (error) {
       console.error("Disconnect failed:", error);
       return false;
+    }
+  }
+
+  async getCalendarEvents(params: {
+    timeMin?: string;
+    timeMax?: string;
+    maxResults?: number;
+    syncToken?: string;
+  }): Promise<GoogleCalendarData> {
+    try {
+      const response = await this.calendar.events.list({
+        calendarId: "primary",
+        timeMin: params.timeMin || new Date().toISOString(),
+        timeMax: params.timeMax,
+        maxResults: params.maxResults || 10,
+        singleEvents: true,
+        orderBy: "startTime",
+        syncToken: params.syncToken,
+        fields:
+          "items(id,summary,description,location,start,end,attendees,conferenceData),nextPageToken,nextSyncToken",
+      });
+
+      return {
+        events: response.data.items as GoogleEvent[],
+        nextPageToken: response.data.nextPageToken,
+      };
+    } catch (error: any) {
+      if (error.code === 401) {
+        await this.refreshAccessToken();
+        return this.getCalendarEvents(params);
+      }
+      throw error;
+    }
+  }
+
+  async createCalendarEvent(event: Partial<GoogleEvent>): Promise<GoogleEvent> {
+    try {
+      const response = await this.calendar.events.insert({
+        calendarId: "primary",
+        requestBody: event,
+        conferenceDataVersion: 1,
+      });
+
+      return response.data as GoogleEvent;
+    } catch (error: any) {
+      if (error.code === 401) {
+        await this.refreshAccessToken();
+        return this.createCalendarEvent(event);
+      }
+      throw error;
     }
   }
 }

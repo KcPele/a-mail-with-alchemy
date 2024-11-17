@@ -1,4 +1,4 @@
-import { ConnectorConfig, ConnectorCredentials } from "@/types";
+import { ConnectorConfig, ConnectorCredentials } from "app/types";
 import { decryptData, encryptData } from "../utils/encryption";
 
 export abstract class BaseConnector {
