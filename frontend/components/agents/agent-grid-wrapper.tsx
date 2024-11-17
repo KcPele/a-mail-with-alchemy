@@ -1,7 +1,7 @@
 "use client";
 
+import Loading from "components/ui/loading";
 import dynamic from "next/dynamic";
-import Loading from "@/components/ui/loading";
 
 const AgentGrid = dynamic(() => import("./agent-grid"), {
   ssr: false,

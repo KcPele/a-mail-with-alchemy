@@ -35,12 +35,12 @@ const NAVIGATION_ITEMS = [
     items: [
       {
         name: "Email",
-        href: "/dashboard/email",
+        href: "/dashboard/agents/email-summary",
         icon: Mail,
       },
       {
         name: "Calendar",
-        href: "/dashboard/calendar",
+        href: "/dashboard/agents/schedule",
         icon: Calendar,
       },
     ],
@@ -50,7 +50,7 @@ const NAVIGATION_ITEMS = [
     items: [
       {
         name: "Wallet",
-        href: "/dashboard/wallet",
+        href: "#",
         icon: Wallet,
       },
       {
@@ -65,7 +65,7 @@ const NAVIGATION_ITEMS = [
       },
       {
         name: "Payments",
-        href: "/dashboard/payments",
+        href: "#",
         icon: CreditCard,
       },
     ],
@@ -75,7 +75,7 @@ const NAVIGATION_ITEMS = [
     items: [
       {
         name: "Settings",
-        href: "/dashboard/settings",
+        href: "/dashboard/settings/auth",
         icon: Settings,
       },
     ],
