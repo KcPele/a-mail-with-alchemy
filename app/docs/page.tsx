@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Book, Lock, Zap, Wallet, Key, Shield } from "lucide-react";
+import { ArrowLeft, Book, Lock, Wallet, Shield } from "lucide-react";
 
 export default function DocsPage() {
   return (

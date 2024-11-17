@@ -1,14 +1,12 @@
 "use client";
 
-import { useUser } from "@account-kit/react";
+import { useAuthModal, useUser } from "@account-kit/react";
 import {
   ArrowRight,
   Shield,
   Wallet,
   Key,
   Lock,
-  Blocks,
-  Mail,
   CheckCircle,
   Users,
   Zap,
@@ -17,6 +15,7 @@ import Link from "next/link";
 
 export default function LandingPage() {
   const user = useUser();
+  const { openAuthModal } = useAuthModal();
 
   return (
     <main className="w-full min-h-[calc(100vh-4rem)] pt-16">
@@ -34,12 +33,12 @@ export default function LandingPage() {
           </p>
           <div className="flex justify-center gap-4">
             {!user && (
-              <Link
-                href="/dashboard"
+              <button
+                onClick={openAuthModal}
                 className="px-6 py-3 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition flex items-center gap-2 shadow-lg transform hover:scale-105 duration-200"
               >
                 Connect Wallet <ArrowRight className="w-4 h-4" />
-              </Link>
+              </button>
             )}
             <Link
               href="/docs"
@@ -59,7 +58,7 @@ export default function LandingPage() {
               { value: "100K+", label: "Active Users" },
               { value: "1M+", label: "Emails Processed" },
               { value: "99.9%", label: "Uptime" },
-            ].map((stat, index) => (
+            ].map((stat) => (
               <div
                 key={stat.label}
                 className="text-center transform hover:scale-105 transition duration-300 ease-in-out"
@@ -100,7 +99,7 @@ export default function LandingPage() {
                 description:
                   "Enhanced security with built-in passkey authentication.",
               },
-            ].map((feature, index) => (
+            ].map((feature) => (
               <div
                 key={feature.title}
                 className="group p-6 rounded-xl border border-gray-200 hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:border-blue-500 bg-white"
