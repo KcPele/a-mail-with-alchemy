@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, Book, Lock, Zap } from "lucide-react";
+import { ArrowLeft, Book, Lock, Zap, Wallet, Key, Shield } from "lucide-react";
 
 export default function DocsPage() {
   return (
@@ -15,7 +15,7 @@ export default function DocsPage() {
         </Link>
         <h1 className="text-3xl font-bold mb-2">Documentation</h1>
         <p className="text-gray-600">
-          Learn how to integrate and use our AI Assistant platform
+          Learn how to integrate and use our Web3 Email Assistant platform
         </p>
       </div>
 
@@ -32,7 +32,8 @@ export default function DocsPage() {
             <ul>
               <li>Node.js {">="} 18.0.0</li>
               <li>npm {">="} 9.0.0</li>
-              <li>Google Cloud Platform account</li>
+              <li>Alchemy Account</li>
+              <li>WalletConnect Project ID</li>
               <li>OpenAI API key</li>
             </ul>
 
@@ -49,59 +50,78 @@ export default function DocsPage() {
           </div>
         </section>
 
-        {/* Authentication */}
+        {/* Web3 Authentication */}
         <section>
           <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-            <Lock className="w-6 h-6 text-blue-600" />
-            Authentication Setup
+            <Wallet className="w-6 h-6 text-blue-600" />
+            Web3 Authentication
           </h2>
           <div className="prose max-w-none">
-            <h3>Google OAuth Configuration</h3>
+            <h3>Alchemy Account Kit Setup</h3>
             <ol>
-              <li>Go to Google Cloud Console</li>
-              <li>Create a new project or select existing one</li>
-              <li>Enable Gmail and Calendar APIs</li>
-              <li>Configure OAuth consent screen</li>
-              <li>Create OAuth 2.0 credentials</li>
-              <li>Add authorized redirect URIs</li>
+              <li>Create an Alchemy account at dashboard.alchemy.com</li>
+              <li>Create a new app and get your API key</li>
+              <li>Set up a gas policy for your application</li>
+              <li>Configure WalletConnect integration</li>
             </ol>
 
             <h3>Environment Variables</h3>
             <p>Create a .env.local file with the following:</p>
             <pre className="bg-gray-50 p-4 rounded-lg">
               <code>
-                GOOGLE_CLIENT_ID=your_client_id{"\n"}
-                GOOGLE_CLIENT_SECRET=your_client_secret{"\n"}
-                OPENAI_API_KEY=your_openai_key{"\n"}
-                ENCRYPTION_KEY=your_encryption_key
+                NEXT_PUBLIC_ALCHEMY_API_KEY=your_alchemy_api_key{"\n"}
+                ALCHEMY_GAS_POLICY_ID=your_gas_policy_id{"\n"}
+                NEXT_PUBLIC_CONTRACT_ADDRESS=your_contract_address{"\n"}
+                NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
               </code>
             </pre>
           </div>
         </section>
 
-        {/* Features */}
+        {/* Authentication Methods */}
         <section>
           <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-            <Zap className="w-6 h-6 text-blue-600" />
-            Features
+            <Lock className="w-6 h-6 text-blue-600" />
+            Authentication Methods
           </h2>
           <div className="grid md:grid-cols-2 gap-6">
             <FeatureCard
-              title="Email Summary"
-              description="Automatically analyze and summarize your unread emails using AI."
+              title="Email Authentication"
+              description="Secure email-based authentication with magic links."
             />
             <FeatureCard
-              title="Schedule Management"
-              description="Manage calendar events and arrange transportation automatically."
+              title="Passkey Support"
+              description="FIDO2 compliant passkey authentication for enhanced security."
             />
             <FeatureCard
-              title="Intent Recognition"
-              description="Natural language processing for understanding user requests."
+              title="Social Login"
+              description="Google OAuth integration with popup support."
             />
             <FeatureCard
-              title="Secure Integration"
-              description="OAuth 2.0 and encryption for secure data handling."
+              title="External Wallets"
+              description="WalletConnect integration for Web3 wallet support."
             />
+          </div>
+        </section>
+
+        {/* Smart Contract */}
+        <section>
+          <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
+            <Shield className="w-6 h-6 text-blue-600" />
+            Smart Contract Integration
+          </h2>
+          <div className="prose max-w-none">
+            <p>
+              Contract Address (Sepolia):{" "}
+              <code>0xb0Be9A7C457eCcd7b4E3f62166D6BA9392977fAA</code>
+            </p>
+            <h3>Features</h3>
+            <ul>
+              <li>OpenZeppelin based secure implementation</li>
+              <li>Gas-optimized operations</li>
+              <li>Role-based access control</li>
+              <li>Upgradeable architecture</li>
+            </ul>
           </div>
         </section>
 
@@ -111,18 +131,18 @@ export default function DocsPage() {
           <div className="space-y-4">
             <ApiEndpoint
               method="POST"
-              path="/api/agents"
-              description="Execute an AI agent"
+              path="/api/auth/login"
+              description="Initiate Web3 authentication"
             />
             <ApiEndpoint
               method="POST"
-              path="/api/auth/gmail"
-              description="Authenticate with Gmail"
+              path="/api/auth/verify"
+              description="Verify authentication signature"
             />
             <ApiEndpoint
-              method="POST"
-              path="/api/intent"
-              description="Analyze user intent"
+              method="GET"
+              path="/api/user/profile"
+              description="Get authenticated user profile"
             />
           </div>
         </section>

@@ -9,7 +9,66 @@ export default withAccountKitUi(
       "./app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
     theme: {
-      extend: {},
+      extend: {
+        animation: {
+          "gradient-x": "gradient-x 15s ease infinite",
+          "fade-in": "fade-in 1s ease-out",
+          "count-up": "count-up 2s ease-out forwards",
+          bounce: "bounce 1s infinite",
+          ripple: "ripple 2s cubic-bezier(0, 0, 0.2, 1) infinite",
+          "ripple-delay": "ripple 2s cubic-bezier(0, 0, 0.2, 1) infinite 1s",
+          float: "float 6s ease-in-out infinite",
+          "float-delay": "float 6s ease-in-out infinite 2s",
+          "float-delay-2": "float 6s ease-in-out infinite 4s",
+          "fade-in": "fade-in 1s ease-out forwards",
+          "fade-in-delay": "fade-in 1s ease-out 0.5s forwards",
+          "fade-in-delay-2": "fade-in 1s ease-out 1s forwards",
+        },
+        keyframes: {
+          "gradient-x": {
+            "0%, 100%": {
+              "background-size": "200% 200%",
+              "background-position": "left center",
+            },
+            "50%": {
+              "background-size": "200% 200%",
+              "background-position": "right center",
+            },
+          },
+          "fade-in": {
+            "0%": {
+              opacity: "0",
+              transform: "translateY(10px)",
+            },
+            "100%": {
+              opacity: "1",
+              transform: "translateY(0)",
+            },
+          },
+          "count-up": {
+            "0%": {
+              transform: "translateY(20px)",
+              opacity: "0",
+            },
+            "100%": {
+              transform: "translateY(0)",
+              opacity: "1",
+            },
+          },
+          ripple: {
+            "0%": { transform: "scale(0.8)", opacity: "1" },
+            "100%": { transform: "scale(2)", opacity: "0" },
+          },
+          float: {
+            "0%, 100%": { transform: "translateY(0)" },
+            "50%": { transform: "translateY(-20px)" },
+          },
+          "fade-in": {
+            "0%": { opacity: "0", transform: "translateY(10px)" },
+            "100%": { opacity: "1", transform: "translateY(0)" },
+          },
+        },
+      },
     },
   },
   {

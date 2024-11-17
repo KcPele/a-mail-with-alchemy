@@ -2,52 +2,24 @@
 import { useUser } from "@account-kit/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Home,
-  Settings,
-  Shield,
-  Car,
-  Wallet,
-  Mail,
-  Calendar,
-} from "lucide-react";
+import { Car, Mail, Calendar } from "lucide-react";
 import { ConnectButton } from "./ConnectButton";
 
 const NAVIGATION_ITEMS = [
   {
-    name: "Home",
-    href: "/",
-    icon: Home,
-  },
-  {
     name: "Email",
-    href: "/dashboard/email",
+    href: "/dashboard/agents/email-summary",
     icon: Mail,
   },
   {
     name: "Calendar",
-    href: "/dashboard/calendar",
+    href: "/dashboard/agents/schedule",
     icon: Calendar,
   },
   {
     name: "Rides",
     href: "/dashboard/rides",
     icon: Car,
-  },
-  {
-    name: "Wallet",
-    href: "/dashboard/wallet",
-    icon: Wallet,
-  },
-  {
-    name: "Subscription",
-    href: "/dashboard/subscription",
-    icon: Shield,
-  },
-  {
-    name: "Settings",
-    href: "/dashboard/settings",
-    icon: Settings,
   },
 ];
 

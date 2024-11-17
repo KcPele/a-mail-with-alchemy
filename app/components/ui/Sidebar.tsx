@@ -42,16 +42,16 @@ const NAVIGATION_ITEMS = [
         href: "/dashboard/agents/schedule",
         icon: Calendar,
       },
+      {
+        name: "Manage",
+        href: "/dashboard/agents/manage",
+        icon: Wallet,
+      },
     ],
   },
   {
     section: "Blockchain",
     items: [
-      {
-        name: "Wallet",
-        href: "#",
-        icon: Wallet,
-      },
       {
         name: "Subscription",
         href: "/dashboard/subscription",

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Check, Loader2 } from "lucide-react";
-import Image from "next/image";
 
 interface OAuthButtonProps {
   service: "gmail" | "calendar" | "uber";
@@ -57,15 +56,8 @@ export function OAuthButton({
     >
       {loading ? (
         <Loader2 className="w-5 h-5 animate-spin" />
-      ) : isConnected ? (
-        <Check className="w-5 h-5" />
       ) : (
-        <Image
-          src={serviceConfig[service].icon}
-          alt={serviceConfig[service].name}
-          width={20}
-          height={20}
-        />
+        isConnected && <Check className="w-5 h-5" />
       )}
       <span className="font-medium">
         {isConnected
