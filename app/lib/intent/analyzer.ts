@@ -1,4 +1,4 @@
-import { openai } from "../../lib/utils/openai";
+import { openai } from "../utils/openai";
 // import { encryptData } from "../utils/encryption";
 import { TEE } from "../utils/tee";
 

@@ -17,7 +17,7 @@ export function RootProvider({ children }: { children: React.ReactNode }) {
   return (
     <DynamicContextProvider
       settings={{
-        environmentId: "sadesd-adscas",
+        environmentId: "ebc8f60c-7ac4-46f4-a077-0373f46231d0",
         walletConnectors: [EthereumWalletConnectors],
         bridgeChains: [
           {
