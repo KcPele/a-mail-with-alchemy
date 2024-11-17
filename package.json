@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@account-kit/infra": "^4.4.1",
+    "@account-kit/react": "^4.4.1",
     "@alchemy/aa-accounts": "^0.1.0",
     "@alchemy/aa-alchemy": "^0.1.0",
     "@alchemy/aa-core": "^0.1.0",

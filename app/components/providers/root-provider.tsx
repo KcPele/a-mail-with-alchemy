@@ -1,41 +1,27 @@
 "use client";
 
-import {
-  DynamicContextProvider,
-  DynamicWidget,
-} from "@dynamic-labs/sdk-react-core";
-import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
-import { WagmiProvider } from "wagmi";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { config } from "app/lib/wagmi";
-import NavbarWallet from "../ui/NavbarWallet";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { AlchemyAccountProvider, UiConfigProvider } from "@account-kit/react";
+import { config, queryClient } from "app/config";
 
-// Create a client
-const queryClient = new QueryClient();
+import { AlchemyClientState } from "@account-kit/core";
+import { PropsWithChildren } from "react";
+import { ConnectButton } from "../ui/ConnectButton";
+import Navbar from "../ui/navbar";
 
-export function RootProvider({ children }: { children: React.ReactNode }) {
+export function RootProvider(
+  props: PropsWithChildren<{ initialState?: AlchemyClientState }>
+) {
   return (
-    <DynamicContextProvider
-      settings={{
-        environmentId: "ebc8f60c-7ac4-46f4-a077-0373f46231d0",
-        walletConnectors: [EthereumWalletConnectors],
-        bridgeChains: [
-          {
-            chain: "EVM",
-          },
-          {
-            chain: "STARK",
-          },
-        ],
-      }}
-    >
-      <QueryClientProvider client={queryClient}>
-        <WagmiProvider config={config}>
-          <NavbarWallet />
-          {children}
-        </WagmiProvider>
-      </QueryClientProvider>
-      <DynamicWidget variant="dropdown" />
-    </DynamicContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <AlchemyAccountProvider
+        config={config}
+        queryClient={queryClient}
+        initialState={props.initialState}
+      >
+        <Navbar />
+        {props.children}
+      </AlchemyAccountProvider>
+    </QueryClientProvider>
   );
 }

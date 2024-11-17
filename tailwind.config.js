@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+import { withAccountKitUi } from "@account-kit/react/tailwind";
+
+export default withAccountKitUi({
   darkMode: ["class"],
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   theme: {
@@ -14,4 +16,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+});

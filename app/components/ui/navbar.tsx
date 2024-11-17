@@ -1,5 +1,5 @@
 "use client";
-
+import { useUser } from "@account-kit/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -11,6 +11,7 @@ import {
   Mail,
   Calendar,
 } from "lucide-react";
+import { ConnectButton } from "./ConnectButton";
 
 const NAVIGATION_ITEMS = [
   {
@@ -52,6 +53,7 @@ const NAVIGATION_ITEMS = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const user = useUser();
 
   return (
     <nav className="h-16 border-b bg-white">
@@ -62,15 +64,17 @@ export default function Navbar() {
           </Link>
 
           <div className="flex items-center space-x-4">
-            {NAVIGATION_ITEMS.map((item) => {
-              const Icon = item.icon;
-              const isActive = pathname === item.href;
+            {user && (
+              <>
+                {NAVIGATION_ITEMS.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = pathname === item.href;
 
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`
                     flex items-center gap-2 px-3 py-2 rounded-lg transition-colors
                     ${
                       isActive
@@ -78,12 +82,16 @@ export default function Navbar() {
                         : "text-gray-600 hover:bg-gray-50"
                     }
                   `}
-                >
-                  <Icon className="w-5 h-5" />
-                  <span className="hidden md:inline">{item.name}</span>
-                </Link>
-              );
-            })}
+                    >
+                      <Icon className="w-5 h-5" />
+                      <span className="hidden md:inline">{item.name}</span>
+                    </Link>
+                  );
+                })}
+              </>
+            )}
+
+            <ConnectButton />
           </div>
         </div>
       </div>
