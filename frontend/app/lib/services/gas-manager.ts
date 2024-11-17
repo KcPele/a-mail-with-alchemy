@@ -1,12 +1,13 @@
-import { type GasManagerConfig, PaymasterAPI } from "@alchemy/aa-core";
+import { AlchemyGasManagerConfig } from "@alchemy/aa-alchemy/dist/types/middleware/gas-manager";
+import { baseSepolia } from "viem/chains";
 
 export class GasManager {
-  private paymasterApi: PaymasterAPI;
+  private paymasterApi: any;
 
-  constructor(config: GasManagerConfig) {
-    this.paymasterApi = new PaymasterAPI({
-      apiKey: config.apiKey,
-      chain: config.chain,
+  constructor(config: AlchemyGasManagerConfig) {
+    this.paymasterApi = new this.paymasterApi({
+      apiKey: "",
+      chain: baseSepolia,
       policyId: config.policyId,
     });
   }

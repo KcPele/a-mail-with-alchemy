@@ -1,5 +1,5 @@
-import { IntentMatcher } from "@/app/lib/intent/matcher";
-import { TEE } from "@/app/lib/utils/tee";
+import { IntentMatcher } from "app/lib/intent/matcher";
+import { TEE } from "app/lib/utils/tee";
 import { NextResponse } from "next/server";
 
 const intentMatcher = new IntentMatcher();

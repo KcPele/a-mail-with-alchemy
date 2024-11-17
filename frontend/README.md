@@ -84,14 +84,23 @@ cp .env.example .env.local
 Fill in the following variables in `.env.local`:
 
 ```env
-
-GOOGLE_CLIENT_ID=your_google_client_id_here
-GOOGLE_CLIENT_SECRET=your_google_client_secret_here
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
 GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/callback/google
-ENCRYPTION_KEY=your_32_byte_encryption_key_here
-OPENAI_API_KEY=your_openai_api_key_here
-UBER_API_KEY=your_uber_api_key_here
-LYFT_API_KEY=your_lyft_api_key_here
+ENCRYPTION_KEY=your_32_byte_encryption_key
+OPENAI_API_KEY=your_openai_api_key
+UBER_API_KEY=your_uber_api_key
+LYFT_API_KEY=your_lyft_api_key
+
+# Alchemy Account Kit
+NEXT_PUBLIC_ALCHEMY_API_KEY=your_alchemy_api_key
+ALCHEMY_GAS_POLICY_ID=your_gas_policy_id
+
+# Contract
+NEXT_PUBLIC_CONTRACT_ADDRESS=your_deployed_contract_address
+
+# Dynamic Environment ID
+NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID=your_dynamic_environment_id
 ```
 
 ## Learn More

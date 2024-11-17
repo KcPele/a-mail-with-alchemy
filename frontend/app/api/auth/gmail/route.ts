@@ -1,5 +1,5 @@
+import { GmailConnector } from "app/lib/connectors/gmail-connector";
 import { NextResponse } from "next/server";
-import { GmailConnector } from "@/app/lib/connectors/gmail-connector";
 
 const gmailConnector = new GmailConnector({
   clientId: process.env.GOOGLE_CLIENT_ID!,

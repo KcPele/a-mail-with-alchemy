@@ -3,9 +3,6 @@
 import {
   ArrowRight,
   Mail,
-  Calendar,
-  Lock,
-  Shield,
   Zap,
   Brain,
   Blocks,

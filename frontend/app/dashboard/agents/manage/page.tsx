@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Settings, AlertCircle } from "lucide-react";
-import { Switch } from "components/ui/switch";
 
 interface AgentSettings {
   id: string;
@@ -99,10 +98,6 @@ export default function AgentManagementPage() {
                   <h2 className="text-lg font-semibold">{agent.name}</h2>
                   <p className="text-gray-600">{agent.description}</p>
                 </div>
-                <Switch
-                  checked={agent.enabled}
-                  onCheckedChange={(enabled) => handleToggle(agent.id, enabled)}
-                />
               </div>
 
               <div className="flex gap-2">
@@ -138,7 +133,7 @@ export default function AgentManagementPage() {
                           {setting.name}
                         </span>
                         {setting.type === "toggle" ? (
-                          <Switch checked={setting.value} />
+                          <button onClick={() => handleToggle}>Switch</button>
                         ) : (
                           <select
                             value={setting.value}

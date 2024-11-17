@@ -78,6 +78,11 @@ const NAVIGATION_ITEMS = [
         href: "/dashboard/settings/auth",
         icon: Settings,
       },
+      {
+        name: "Docs",
+        href: "/dashboard/docs",
+        icon: Settings,
+      },
     ],
   },
 ];

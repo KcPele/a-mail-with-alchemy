@@ -1,6 +1,6 @@
 import { BaseAgent } from "./base-agent";
 import { GmailConnector } from "../connectors/gmail-connector";
-import { AgentConfig } from "app/types";
+import { AgentConfig, AgentParams, AgentResponse } from "app/types";
 
 interface EmailSummaryResult {
   success: boolean;
@@ -21,7 +21,9 @@ export class EmailSummaryAgent extends BaseAgent {
     this.gmailConnector = gmailConnector;
   }
 
-  async execute(params: { timeframe?: string }): Promise<EmailSummaryResult> {
+  async execute(
+    params: AgentParams
+  ): Promise<AgentResponse<EmailSummaryResult>> {
     console.log("Executing Email Summary Agent", params);
     try {
       const emailData = await this.gmailConnector.getData({
@@ -47,13 +49,19 @@ export class EmailSummaryAgent extends BaseAgent {
 
       return {
         success: true,
-        summary,
-        categories,
-        totalEmails: emailData.messages.length,
+        data: {
+          success: true,
+          summary,
+          categories,
+          totalEmails: emailData.messages.length,
+        },
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error("Email summary generation failed:", error);
-      throw error;
+      return {
+        success: false,
+        error: error,
+      };
     }
   }
 

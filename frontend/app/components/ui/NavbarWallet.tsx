@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Wallet, Bell } from "lucide-react";
+import { Bell } from "lucide-react";
 
 import React from "react";
+import { DynamicConnectBtx } from "./DynamicConnectBtx";
 
 const NavbarWallet = () => {
   return (
@@ -18,13 +19,8 @@ const NavbarWallet = () => {
             <button className="p-2 hover:bg-gray-100 rounded-lg">
               <Bell className="w-5 h-5 text-gray-600" />
             </button>
-            <Link
-              href="/dashboard/wallet"
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-            >
-              <Wallet className="w-5 h-5" />
-              <span>Connect Wallet</span>
-            </Link>
+
+            <DynamicConnectBtx />
           </div>
         </div>
       </div>
