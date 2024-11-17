@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { DynamicProvider } from "./components/providers/dynamic-provider";
-import NavbarWallet from "./components/ui/Navbar";
+import { DynamicContextProvider } from "@dynamic-labs/sdk-react-core";
+import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
+import NavbarWallet from "components/ui/navbar";
 
 export const metadata: Metadata = {
   title: "AI Data Integration Assistant",
@@ -16,10 +17,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <DynamicProvider>
+        <DynamicContextProvider
+          settings={{
+            environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ENVIRONMENT_ID!,
+            walletConnectors: [EthereumWalletConnectors],
+          }}
+        >
           <NavbarWallet />
           {children}
-        </DynamicProvider>
+        </DynamicContextProvider>
       </body>
     </html>
   );

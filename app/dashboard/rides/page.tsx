@@ -47,28 +47,23 @@ export default function RidesPage() {
   };
 
   const handlePayRide = async (ride: RideDetails) => {
-    try {
-      const connector = new AccountKitConnector({
-        apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY!,
-        chain: arbitrum,
-      });
-
-      const email = prompt("Enter your email to pay for ride:");
-      if (!email) return;
-
-      await connector.connectWithPasskey(email);
-
-      const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS!;
-      const data = `0x${ride.rideId}`; // scheduleRidePayment function signature
-
-      await connector.sendTransaction(contractAddress, data);
-
-      alert("Payment successful!");
-      await loadRides();
-    } catch (error) {
-      console.error("Payment failed:", error);
-      alert("Failed to process payment");
-    }
+    // try {
+    //   const connector = new AccountKitConnector({
+    //     apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY!,
+    //     chain: arbitrum,
+    //   });
+    //   const email = prompt("Enter your email to pay for ride:");
+    //   if (!email) return;
+    //   await connector.connectWithPasskey(email);
+    //   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS!;
+    //   const data = `0x${ride.rideId}`; // scheduleRidePayment function signature
+    //   await connector.sendTransaction(contractAddress, data);
+    //   alert("Payment successful!");
+    //   await loadRides();
+    // } catch (error) {
+    //   console.error("Payment failed:", error);
+    //   alert("Failed to process payment");
+    // }
   };
 
   return (

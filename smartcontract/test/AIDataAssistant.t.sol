@@ -3,68 +3,48 @@ pragma solidity ^0.8.19;
 
 import "forge-std/Test.sol";
 import "../src/AIDataAssistant.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
-contract MockToken is ERC20 {
-    constructor() ERC20("Mock Token", "MTK") {
-        _mint(msg.sender, 1000000 * 10 ** 18);
-    }
-}
 
 contract AIDataAssistantTest is Test {
     AIDataAssistant public assistant;
-    MockToken public token;
     address public user;
     address public driver;
     uint256 public userPrivateKey;
     uint256 public driverPrivateKey;
 
     function setUp() public {
-        // Deploy mock token
-        token = new MockToken();
-
-        // Setup subscription prices
-        uint256[] memory prices = new uint256[](3);
-        prices[0] = 100 * 10 ** 18; // Basic tier
-        prices[1] = 200 * 10 ** 18; // Premium tier
-        prices[2] = 300 * 10 ** 18; // Enterprise tier
-
-        // Deploy main contract
-        assistant = new AIDataAssistant(address(token), prices);
+        // Deploy the main contract
+        assistant = new AIDataAssistant();
 
         // Setup test accounts
         (user, userPrivateKey) = makeAddrAndKey("user");
         (driver, driverPrivateKey) = makeAddrAndKey("driver");
 
-        // Fund user account
-        token.transfer(user, 1000 * 10 ** 18);
+        // Fund user account with Ether
+        vm.deal(user, 10 ether); // Provide 10 ETH to user
     }
 
     function testPurchaseSubscription() public {
         vm.startPrank(user);
-        token.approve(address(assistant), 100 * 10 ** 18);
-        assistant.purchaseSubscription(0); // Basic tier
+        assistant.purchaseSubscription(); // Purchase subscription with Ether
         vm.stopPrank();
 
         (uint256 tier, uint256 expiresAt, bool active) = assistant
             .subscriptions(user);
         assertTrue(active);
-        assertEq(tier, 0);
+        assertEq(tier, 0); // Fixed single tier
         assertEq(expiresAt, block.timestamp + 30 days);
     }
 
     function testScheduleRide() public {
         // First purchase subscription
         vm.startPrank(user);
-        token.approve(address(assistant), 200 * 10 ** 18);
-        assistant.purchaseSubscription(0);
+        assistant.purchaseSubscription{value: 0.1 ether}();
 
-        // Schedule ride
+        // Schedule ride with Ether payment
         bytes32 rideId = keccak256(
             abi.encodePacked("test_ride", block.timestamp)
         );
-        token.approve(address(assistant), 50 * 10 ** 18);
-        assistant.scheduleRidePayment(rideId, 50 * 10 ** 18);
+        assistant.scheduleRidePayment{value: 0.05 ether}(rideId);
         vm.stopPrank();
 
         (address rider, , , , , bool completed) = assistant.ridePayments(
@@ -76,19 +56,28 @@ contract AIDataAssistantTest is Test {
 
     function testCompleteRide() public {
         // Setup ride
-        testScheduleRide();
+        vm.startPrank(user);
+        assistant.purchaseSubscription{value: 0.1 ether}();
 
         bytes32 rideId = keccak256(
             abi.encodePacked("test_ride", block.timestamp)
         );
+        assistant.scheduleRidePayment{value: 0.05 ether}(rideId);
+        vm.stopPrank();
+
+        // Simulate signing the message with the user's private key
         bytes32 messageHash = keccak256(abi.encodePacked(rideId, driver));
-        bytes32 signedHash = keccak256(
+        bytes32 ethSignedMessageHash = keccak256(
             abi.encodePacked("\x19Ethereum Signed Message:\n32", messageHash)
         );
 
-        (uint8 v, bytes32 r, bytes32 s) = vm.sign(userPrivateKey, signedHash);
+        (uint8 v, bytes32 r, bytes32 s) = vm.sign(
+            userPrivateKey,
+            ethSignedMessageHash
+        );
         bytes memory signature = abi.encodePacked(r, s, v);
 
+        vm.prank(user); // Simulate the user calling the function
         assistant.completeRide(rideId, driver, signature);
 
         (, address assignedDriver, , , , bool completed) = assistant
@@ -100,8 +89,7 @@ contract AIDataAssistantTest is Test {
     function testServiceAuthorization() public {
         // Purchase subscription first
         vm.startPrank(user);
-        token.approve(address(assistant), 100 * 10 ** 18);
-        assistant.purchaseSubscription(0);
+        assistant.purchaseSubscription{value: 0.1 ether}();
 
         // Authorize service
         assistant.authorizeService("gmail");
@@ -111,5 +99,24 @@ contract AIDataAssistantTest is Test {
         assistant.revokeService("gmail");
         assertFalse(assistant.isServiceAuthorized(user, "gmail"));
         vm.stopPrank();
+    }
+
+    function testWithdraw() public {
+        // Simulate subscription and ride payments
+        vm.startPrank(user);
+        assistant.purchaseSubscription{value: 0.1 ether}();
+        bytes32 rideId = keccak256(
+            abi.encodePacked("test_ride", block.timestamp)
+        );
+        assistant.scheduleRidePayment{value: 0.05 ether}(rideId);
+        vm.stopPrank();
+
+        uint256 initialBalance = address(this).balance;
+
+        // Withdraw funds as the owner
+        assistant.withdraw();
+
+        uint256 finalBalance = address(this).balance;
+        assertEq(finalBalance, initialBalance + 0.15 ether); // 0.1 ETH + 0.05 ETH
     }
 }

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Shield, Check } from "lucide-react";
 import { arbitrum } from "viem/chains";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+import { useConnectWallet } from "@/hooks/useConnectWallet";
 
 const SUBSCRIPTION_TIERS = [
   {
@@ -39,29 +41,26 @@ const SUBSCRIPTION_TIERS = [
 export default function SubscriptionPage() {
   const [loading, setLoading] = useState(false);
   const [selectedTier, setSelectedTier] = useState<number | null>(null);
+  const { primaryWallet, handleLogOut } = useDynamicContext();
+  const { connect } = useConnectWallet();
 
   const handleSubscribe = async (tier: number) => {
     setLoading(true);
     try {
-      const connector = new AccountKitConnector({
-        apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY!,
-        chain: arbitrum,
-      });
-
-      // Connect wallet
-      const email = prompt("Enter your email to subscribe:");
-      if (!email) return;
-
-      await connector.connectWithPasskey(email);
-      const address = connector.getAddress();
-
-      if (!address) throw new Error("Failed to connect wallet");
+      if (!primaryWallet) {
+        await connect();
+        return;
+      }
 
       // Call smart contract
       const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS!;
       const data = `0x23b872dd000000000000000000000000${tier}`; // purchaseSubscription function signature
 
-      await connector.sendTransaction(contractAddress, data);
+      const tx = await primaryWallet.connector.sendTransaction({
+        to: contractAddress,
+        data,
+        value: "0x00",
+      });
 
       alert("Subscription successful!");
     } catch (error) {
