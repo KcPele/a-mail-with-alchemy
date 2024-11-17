@@ -1,10 +1,21 @@
-# AI Data Integration Assistant
+# AI Data Integration Assistant with Web3 Authentication
 
-A modern web application that provides intelligent AI agents to help users manage their digital life through secure OAuth integrations with various services like Gmail, Google Calendar, and ride-sharing platforms.
+A modern web application that combines AI-powered data management with secure Web3 authentication through Alchemy Account Kit. The application helps users manage their digital life through secure OAuth integrations with various services while providing a seamless blockchain-based authentication experience.
 
 ## Features
 
-### 1. Intelligent AI Agents
+### 1. Web3 Authentication
+
+- Secure login with Alchemy Account Kit
+- Multiple authentication methods:
+  - Email authentication
+  - Passkey support
+  - Google social login
+  - External wallet connections (WalletConnect)
+- Persistent authentication state
+- Server-side rendering support
+
+### 2. Intelligent AI Agents
 
 - **Email Summary Assistant**
 
@@ -17,48 +28,47 @@ A modern web application that provides intelligent AI agents to help users manag
   - Automatically arranges transportation for meetings
   - Integrates with ride-sharing services
 
-### 2. Secure Data Integration
+### 3. Service Integrations
 
 - OAuth 2.0 authentication for all service connections
+- Supported services:
+  - Gmail
+  - Google Calendar
+  - Uber
 - End-to-end encryption for sensitive data
-- Trusted Execution Environment (TEE) for secure processing
 - GDPR-compliant data handling
-
-### 3. Smart Intent Recognition
-
-- Natural language processing for user requests
-- Context-aware agent selection
-- Automatic service authorization checks
-- High-accuracy intent matching
 
 ## Technology Stack
 
-- **Frontend**
+### Frontend
 
-  - Next.js 14 (App Router)
-  - React 19
-  - TypeScript
-  - Tailwind CSS
-  - Lucide Icons
+- Next.js 15.0.3 (App Router)
+- React 19.0.0-rc
+- TypeScript
+- Tailwind CSS
+- Lucide Icons
 
-- **Backend**
+### Blockchain & Authentication
 
-  - Next.js API Routes
-  - OpenAI GPT-4
-  - Google APIs (Gmail, Calendar)
-  - OAuth 2.0 Integration
+- Alchemy Account Kit
+- WalletConnect
+- Viem
+- Wagmi
+- OpenZeppelin Contracts
 
-- **Security**
-  - AES-256 Encryption
-  - Trusted Execution Environment
-  - Secure Token Management
+### Backend
+
+- Next.js API Routes
+- OpenAI GPT-4
+- Google APIs (Gmail, Calendar)
+- OAuth 2.0 Integration
 
 ## Getting Started
 
 ### Prerequisites
 
-Node.js >= 18.0.0
-npm >= 9.0.0
+- Node.js >= 18.0.0
+- npm >= 9.0.0
 
 ### Installation
 
