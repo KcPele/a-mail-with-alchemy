@@ -68,6 +68,11 @@ const NAVIGATION_ITEMS = [
         href: "#",
         icon: CreditCard,
       },
+      {
+        name: "Bridge",
+        href: "/dashboard/bridge",
+        icon: Car,
+      },
     ],
   },
   {
