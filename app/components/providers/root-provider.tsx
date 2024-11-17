@@ -19,6 +19,14 @@ export function RootProvider({ children }: { children: React.ReactNode }) {
       settings={{
         environmentId: "sadesd-adscas",
         walletConnectors: [EthereumWalletConnectors],
+        bridgeChains: [
+          {
+            chain: "EVM",
+          },
+          {
+            chain: "STARK",
+          },
+        ],
       }}
     >
       <QueryClientProvider client={queryClient}>
